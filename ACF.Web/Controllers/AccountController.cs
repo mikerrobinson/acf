@@ -15,6 +15,14 @@ namespace ACF.Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        public class EmailUserNameValidator : IIdentityValidator<ApplicationUser>
+        {
+            public Task<IdentityResult> ValidateAsync(ApplicationUser item)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
@@ -23,6 +31,7 @@ namespace ACF.Web.Controllers
         public AccountController(UserManager<ApplicationUser> userManager)
         {
             UserManager = userManager;
+            UserManager.UserValidator = new UserValidator<ApplicationUser>(UserManager) { AllowOnlyAlphanumericUserNames = false };
         }
 
         public UserManager<ApplicationUser> UserManager { get; private set; }

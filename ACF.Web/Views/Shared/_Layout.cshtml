@@ -1,44 +1,135 @@
 ﻿<!DOCTYPE html>
-<html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+ <!--<![endif]-->
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <link rel="shortcut icon" href="favicon.ico">
 
+    <title>Armchair Flying - @ViewBag.Title</title>
+
+    <!-- CSS Global Compulsory-->
+    <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/headers/header1.css">
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/plugins/flexslider/flexslider.css">
+    <link rel="stylesheet" href="/assets/plugins/parallax-slider/css/parallax-slider.css">
+
+    <!-- CSS Page Style -->
+    @RenderSection("styles", required: false)
+
+    <!-- CSS Theme -->
+    <link rel="stylesheet" href="/assets/css/themes/blue.css" id="style_color">
+    <link rel="stylesheet" href="/assets/css/themes/headers/header1-blue.css" id="style_color-header-1">
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+
+    <!--=== Top ===-->
+    <div class="top">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+            <ul class="loginbar pull-right">
                 @Html.Partial("_LoginPartial")
+            </ul>
+        </div>
+    </div><!--/top-->
+    <!--=== End Top ===-->
+
+    <!--=== Header ===-->
+    <div class="header">
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header" style="width: 35%">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="@Url.Action("Index", "Home", null )">
+                        <img id="logo-header" src="@Url.Content("/assets/img/acf-logo-header.png")" alt="Armchair Flying">
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About Us", "About", "Home")</li>
+                        <li>@Html.ActionLink("Instructors", "Instructors", "Home")</li>
+                        <li>@Html.ActionLink("Flight Schools", "Schools", "Home")</li>
+                        <li>@Html.ActionLink("Insurance", "Insurance", "Home")</li>
+                        <li>@Html.ActionLink("FAQ", "FAQ", "Home")</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    </div><!--/header-->
+    <!--=== End Header ===-->
+
+    <!--=== Breadcrumbs ===-->
+    @RenderSection("breadcrumbs", required: false)
+    <!--=== End Breadcrumbs ===-->
+
+    @RenderSection("hero", required: false)
+
+    @RenderSection("purchase", required: false)
+
+    <div class="container">
+         @RenderBody()
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <!--=== Footer ===-->
+    <div class="footer">
+        <div class="container">
+            @RenderSection("footer", required: false)
+        </div><!--/container-->
+    </div><!--/footer-->
+    <!--=== End Footer ===-->
+
+    <!--=== Copyright ===-->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="copyright-space">
+                        @DateTime.Now.Year &copy; Armchair Flying. All Rights Reserved.
+                        @Html.ActionLink("Privacy Policy", "Privacy", "Home") | @Html.ActionLink("Terms of Service", "Terms", "Home")
+                    </p>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div><!--/row-->
+        </div><!--/container-->
+    </div><!--/copyright-->
+    <!--=== End Copyright ===-->
+
+    <!-- JS Global Compulsory -->
+    <script type="text/javascript" src="/assets/plugins/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/hover-dropdown.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/back-to-top.js"></script>
+    <!-- JS Implementing Plugins -->
+    <script type="text/javascript" src="/assets/plugins/flexslider/jquery.flexslider-min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/parallax-slider/js/modernizr.js"></script>
+    <script type="text/javascript" src="/assets/plugins/parallax-slider/js/jquery.cslider.js"></script> 
+
+    <!-- JS Page Level -->
     @RenderSection("scripts", required: false)
+
+    <!--[if lt IE 9]>
+        <script src="/assets/plugins/respond.js"></script>
+    <![endif]-->
+
 </body>
 </html>
+

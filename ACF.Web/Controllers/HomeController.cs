@@ -15,15 +15,36 @@ namespace ACF.Web.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Instructors()
         {
-            ViewBag.Message = "Your contact page.";
+            return View();
+        }
 
+        public ActionResult Schools()
+        {
+            return View();
+        }
+
+        public ActionResult Insurance()
+        {
+            return View();
+        }
+
+        public ActionResult FAQ()
+        {
+            return View();
+        }
+
+        public ActionResult Privacy()
+        {
+            return View();
+        }
+
+        public ActionResult Terms()
+        {
             return View();
         }
     }

@@ -5,7 +5,7 @@ namespace ACF.Web.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Email")]
         public string UserName { get; set; }
     }
 
@@ -31,7 +31,7 @@ namespace ACF.Web.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Email")]
         public string UserName { get; set; }
 
         [Required]
@@ -45,10 +45,17 @@ namespace ACF.Web.Models
 
     public class RegisterViewModel
     {
-        [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
+        //[Display(Name = "First Name")]
+        //public string FirstName { get; set; }
 
+        //[Display(Name = "Last Name")]
+        //public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Email Address")]
+        [EmailAddress(ErrorMessage="Please enter a valid email address")]
+        public string UserName { get; set; }
+        
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -59,5 +66,8 @@ namespace ACF.Web.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage="Terms and Conditions must be accepted in order to register")]
+        public bool AreTermsAccepted { get; set; }
     }
 }
