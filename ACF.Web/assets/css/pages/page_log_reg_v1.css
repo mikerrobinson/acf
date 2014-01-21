@@ -25,3 +25,7 @@
 .reg-page label {
 	color: #777;
 }
+
+.reg-page .input-group-addon {
+	min-width: 40px;
+}
