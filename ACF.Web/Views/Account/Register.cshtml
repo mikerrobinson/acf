@@ -1,4 +1,6 @@
-﻿@model ACF.Web.Models.RegisterViewModel
+﻿@using ACF.Web.Models;
+
+@model ACF.Web.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
@@ -10,19 +12,23 @@
 @section breadcrumbs {
     <div class="breadcrumbs margin-bottom-40">
         <div class="container">
-            <h1 class="pull-left">Registration</h1>
+            <div class="row col-lg-12">
+                <h1 class="pull-left">Registration</h1>
+            </div>
+            <div class="row col-lg-12">
+                <p>Already registered? Click @Html.ActionLink("here", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to login your account.</p>
+            </div>
         </div>
     </div><!--/breadcrumbs-->
 }
 
 <div class="row">
-    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="col-md-6">
 
         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "reg-page" }))
         {
-            <div class="reg-header">
-                <h2>Register a new account</h2>
-                <p>Already registered? Click @Html.ActionLink("here", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to login your account.</p>
+            <div class="headline">
+                <h2>Create a new local account</h2>
             </div>
 
             @Html.AntiForgeryToken()
@@ -50,21 +56,24 @@
             <hr>
 
             <div class="row">
-                <div class="col-lg-8">
-                    <label class="checkbox">
-                        @Html.CheckBoxFor(m => m.AreTermsAccepted)
-                        I have read the @Html.ActionLink("Terms and Conditions", "Terms", "Home")
-                    </label>
-                    @Html.ValidationMessageFor(m => m.AreTermsAccepted)
-                </div>
-                <div class="col-lg-4 text-right">
+                @*<div class="col-lg-8">
+                        <label class="checkbox">
+                            @Html.CheckBoxFor(m => m.AreTermsAccepted)
+                            I have read the @Html.ActionLink("Terms and Conditions", "Terms", "Home")
+                        </label>
+                        @Html.ValidationMessageFor(m => m.AreTermsAccepted)
+                    </div>*@
+                <div class="col-lg-12 text-right">
                     <button class="btn-u" type="submit">Register</button>
                 </div>
             </div>
         }
-
-        @section scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
+    </div>
+    <div class="col-md-6">
+        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginViewModel { Action = "ExternalLogin", ReturnUrl = "/Account/Register", Headline = "Use an existing social account" })
     </div>
 </div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

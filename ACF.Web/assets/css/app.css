@@ -136,7 +136,8 @@ img.img-circle {
    padding:10px 25px;
 }
 
-a.btn-u {
+/* TODO: OVERRIDE THIS PROPERLY IN site.css ? */
+/*a.btn-u {
    padding:4px 13px;
    vertical-align:middle;
 }
@@ -146,7 +147,8 @@ a.btn-u-small {
 a.btn-u-lg {
    font-size:18px;
    padding:6px 25px;
-}
+}*/
+
 
 /*For FF Only*/
 @-moz-document url-prefix() { 

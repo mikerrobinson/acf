@@ -1,0 +1,67 @@
+﻿@using Microsoft.Owin.Security
+
+@model ICollection<Microsoft.AspNet.Identity.UserLoginInfo>
+
+<h4>Social Logins</h4>
+<table class="table">
+    <tbody>
+    @{
+        var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+        if (loginProviders.Count() == 0)
+        {
+        <tr>
+            <p>
+                There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
+                for details on setting up this ASP.NET application to support logging in via external services.
+            </p>
+        </tr>
+        }
+        else
+        {
+            foreach (AuthenticationDescription p in loginProviders)
+            {
+            <tr>
+                <td>@p.Caption</td>
+                <td>
+                    @{
+                        var l = Model.FirstOrDefault(login => login.LoginProvider.Equals(p.AuthenticationType));
+                    }
+                    @if (l != null)
+                    {
+                        if (ViewBag.ShowRemoveButton)
+                        {
+                            using (Html.BeginForm("Disassociate", "Account"))
+                            {
+                            @Html.AntiForgeryToken()
+                            <div>
+                                @Html.Hidden("loginProvider", l.LoginProvider)
+                                @Html.Hidden("providerKey", l.ProviderKey)
+                                <input type="submit" class="btn btn-default" value="Remove" title="Remove this @l.LoginProvider login from your account" />
+                            </div>
+                            }
+                        }
+                        else
+                        {
+                            @: &nbsp;
+                        }
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("LinkLogin", "Account", new { returnUrl = "Manage" }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div id="socialLoginList">
+                                <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">Add</button>
+                            </div>
+                        }
+                    }
+                </td>
+            </tr>
+                    
+                    
+            }
+        }
+    }
+
+    </tbody>
+</table>

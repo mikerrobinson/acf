@@ -12,17 +12,8 @@ using ACF.Web.Models;
 
 namespace ACF.Web.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
-        public class EmailUserNameValidator : IIdentityValidator<ApplicationUser>
-        {
-            public Task<IdentityResult> ValidateAsync(ApplicationUser item)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
@@ -92,7 +83,7 @@ namespace ACF.Web.Controllers
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ProfileConfirmation");
                 }
                 else
                 {
@@ -103,6 +94,48 @@ namespace ACF.Web.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        //
+        // GET: /Account/Manage
+        public ActionResult ProfileConfirmation()
+        {
+            // TODO: use TempData here instead of setting/retrieving info in both methods?
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var profileConfirmationViewModel = new ProfileConfirmationViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                BaseAirport = user.BaseAirport
+            };
+            return View(profileConfirmationViewModel);
+        }
+
+        //
+        // POST: /Account/ProfileConfirmation
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ProfileConfirmation(ProfileConfirmationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = UserManager.FindById(User.Identity.GetUserId());
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.BaseAirport = model.BaseAirport;
+
+                var result = await UserManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    TempData["JustRegistered"] = true;
+                    return RedirectToAction("Dashboard", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
 
         //
         // POST: /Account/Disassociate
@@ -206,9 +239,10 @@ namespace ACF.Web.Controllers
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
+            var externalIdentity = AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
+            if (loginInfo == null || externalIdentity == null)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("ExternalLoginFailure");
             }
 
             // Sign in the user with this external login provider if the user already has a login
@@ -216,15 +250,57 @@ namespace ACF.Web.Controllers
             if (user != null)
             {
                 await SignInAsync(user, isPersistent: false);
-                return RedirectToLocal(returnUrl);
+                return RedirectToAction("Dashboard", "Home");
             }
             else
             {
-                // If the user does not have an account, then prompt the user to create an account
-                ViewBag.ReturnUrl = returnUrl;
-                ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });
+                var emailClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+                var firstnameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName);
+                var lastnameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname);
+                var linkedInNameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == "urn:linkedin:name");
+                var email = (emailClaim == null) ? "" : emailClaim.Value;
+                var firstname = (firstnameClaim == null) ? "" : firstnameClaim.Value;
+                var lastname = (lastnameClaim == null) ? "" : lastnameClaim.Value;
+                if (linkedInNameClaim != null && firstname == "")
+                {
+                    var names = linkedInNameClaim.Value.Split(new char[] { ' ' });
+                    lastname = names.Last();
+                    firstname = String.Join(" ", names.Take(names.Count() - 1));
+                }
+
+                // prompt to login then link accounts if there's already an account 
+                // matching the email from the provider
+                user = await UserManager.FindByNameAsync(email);
+                if (user != null)
+                {
+                    // TODO: THIS IS BROKEN, authenticating when an account with same email doesn't yet work
+                    string providerName = loginInfo.Login.LoginProvider;
+                    string errorMessage = String.Format("An account already exists with the email {0} provided.  If you login using your original account, you can link your {0} account on the Manage Account page", providerName);
+                    ModelState.AddModelError("", errorMessage);
+                }
+                else
+                {
+                    user = new ApplicationUser()
+                    {
+                        UserName = email,
+                        FirstName = firstname,
+                        LastName = lastname
+                    };
+                    var result = await UserManager.CreateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        result = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
+                        if (result.Succeeded)
+                        {
+                            await SignInAsync(user, isPersistent: false);
+                            return RedirectToAction("ProfileConfirmation");
+                        }
+                    }
+                    AddErrors(result);
+                }
             }
+
+            return RedirectToLocal(returnUrl);
         }
 
         //
@@ -311,11 +387,11 @@ namespace ACF.Web.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult RemoveAccountList()
+        public ActionResult AccountList()
         {
             var linkedAccounts = UserManager.GetLogins(User.Identity.GetUserId());
             ViewBag.ShowRemoveButton = HasPassword() || linkedAccounts.Count > 1;
-            return (ActionResult)PartialView("_RemoveAccountPartial", linkedAccounts);
+            return (ActionResult)PartialView("_AccountListPartial", linkedAccounts);
         }
 
         protected override void Dispose(bool disposing)
@@ -387,7 +463,8 @@ namespace ACF.Web.Controllers
 
         private class ChallengeResult : HttpUnauthorizedResult
         {
-            public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)
+            public ChallengeResult(string provider, string redirectUri)
+                : this(provider, redirectUri, null)
             {
             }
 

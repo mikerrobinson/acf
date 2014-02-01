@@ -2,11 +2,32 @@
 
 namespace ACF.Web.Models
 {
+    public class ProfileConfirmationViewModel
+    {
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Display(Name = "Base Airport")]
+        public string BaseAirport { get; set; }
+
+    }
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
         [Display(Name = "Email")]
         public string UserName { get; set; }
+    }
+
+    public class ExternalLoginViewModel
+    {
+        public string Action { get; set; }
+        public string ReturnUrl { get; set; }
+
+        public string Headline { get; set; }
     }
 
     public class ManageUserViewModel
@@ -39,7 +60,7 @@ namespace ACF.Web.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me")]
+        [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
     }
 
@@ -53,9 +74,9 @@ namespace ACF.Web.Models
 
         [Required]
         [Display(Name = "Email Address")]
-        [EmailAddress(ErrorMessage="Please enter a valid email address")]
+        [EmailAddress(ErrorMessage = "Please enter a valid email address")]
         public string UserName { get; set; }
-        
+
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -67,7 +88,7 @@ namespace ACF.Web.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage="Terms and Conditions must be accepted in order to register")]
-        public bool AreTermsAccepted { get; set; }
+        //[Required(ErrorMessage="Terms and Conditions must be accepted in order to register")]
+        //public bool AreTermsAccepted { get; set; }
     }
 }

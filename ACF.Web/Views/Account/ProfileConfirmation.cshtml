@@ -1,0 +1,69 @@
+﻿@using ACF.Web.Models;
+@using Microsoft.AspNet.Identity;
+
+@model ACF.Web.Models.ProfileConfirmationViewModel
+
+@{
+    ViewBag.Title = "Welcome";
+}
+
+@section styles {
+    <link rel="stylesheet" href="/assets/css/pages/page_log_reg_v1.css">
+}
+
+@section breadcrumbs {
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <div class="row col-lg-12">
+                <h1 class="pull-left">@ViewBag.Title</h1>
+            </div>
+            <div class="row col-lg-12">
+                <p>You're all signed up!  Providing some basic information here just helps us customize the site and any email correspondence to you.  It is never shared.</p>
+            </div>
+        </div>
+    </div><!--/breadcrumbs-->
+}
+
+
+
+<div class="row">
+    <div class="col-md-6">
+
+        @using (Html.BeginForm("ProfileConfirmation", "Account", FormMethod.Post, new { @class = "reg-page" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FirstName)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.LastName)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.BaseAirport, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.BaseAirport, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.BaseAirport)
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-lg-12 text-right">
+                    <button class="btn-u" type="submit">Continue <span class="glyphicon glyphicon-arrow-right"></span></button>
+                    @Html.ActionLink("Skip this step", "", "", routeValues: null, htmlAttributes: new { @class = "btn-u btn-u-default" } )
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
