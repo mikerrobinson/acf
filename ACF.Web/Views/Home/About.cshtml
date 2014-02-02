@@ -1,7 +1,42 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "About Us";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+@section breadcrumbs {
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <div class="row col-lg-12">
+                <h1 class="pull-left">About ArmchairFlying.com</h1>
+            </div>
+            @*<div class="row col-lg-12">
+                <p>Already subscribed? Click @Html.ActionLink("here", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to login your account.</p>
+            </div>*@
+        </div>
+    </div><!--/breadcrumbs-->
+}
+
+
+<div class="row">
+    <div class="col-md-9">
+        <p>Gain wisdom... through regularly published articles and videos that will help you stay current on aviation topics throughout the year! Armchair Flying will provide you lessons that you can read or watch in 5 minutes or less. When was the last time you pulled our your private, instrument, or commercial pilot study materials? We will give you accurate information to make your flying more fun, enjoyable, and most importantly, safe!</p>
+        <p>Aviation magazines are great publications, though they typically only come out once a month. Once they are read, then we all wait until the next magazine to do more reading and studying about aviation and aviation safety.</p>
+        <p>All the information will relate directly to aviation safety and useful information for pilots! The website is fully compatible with computers, smart phones, and tablets.</p>
+        <p>The topics will range from article to article.  Maintenance, airspace, charts, VFR, IFR, maneuvers, weather, etc...</p>
+        <p>For less than the cost of 1 gallon of 100-LL you can get daily tips and videos that will make you think. Just thinking about aviation, even on a day when you're not flying, will help to keep your mind refreshed on aviation topics.</p>
+        <h4>Who is this website for?</h4>
+        <p>This website is for anyone that dreams about flying while on the ground! All levels of experience, from student pilot to airline transport pilot will gather useful information from the website.</p>
+        <h4>Disclaimer</h4>
+        <p>Always work with your Certificated Flight Instructor to stay current and proficient. Always work with your A&P to discuss issues about maintenance.</p>
+        <p>This website is a way to read quick daily articles / watch instructional videos, though is not a substitute for ground school.  Signing up for this website is not guaranteed to make you a safer pilot, though will let you see topics you may not think about on a daily basis and that can't hurt!</p>
+        <p>This website will never supersede your aircraft's operating handbook or maintenance manual. Never use any of the charts on this website for navigation.</p>
+    </div><!--/col-md-9-->
+
+    <div class="col-md-3">
+        <!-- Quote -->
+        <blockquote>
+            <p>Wisdom is the quality that keeps you from getting into situations where you need it.</p>
+            <small class="color-blue">Doug Larson, American newspaper columnist</small>
+        </blockquote>
+        <!-- End Quote -->
+    </div><!--/col-md-3-->
+</div><!--/row-->

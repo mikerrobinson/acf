@@ -231,6 +231,7 @@
     <Content Include="assets\css\themes\light.css" />
     <Content Include="assets\css\themes\orange.css" />
     <Content Include="assets\css\themes\red.css" />
+    <Content Include="assets\img\acf-logo-header.png" />
     <Content Include="assets\img\bg-black.png" />
     <Content Include="assets\img\bg-black1.png" />
     <Content Include="assets\img\bg-green.png" />
@@ -344,8 +345,6 @@
     <Content Include="assets\img\posts\1.jpg" />
     <Content Include="assets\img\posts\2.jpg" />
     <Content Include="assets\img\posts\3.jpg" />
-    <Content Include="assets\img\rezeo_logo.png" />
-    <Content Include="assets\img\rezeo_logo_footer.png" />
     <Content Include="assets\img\sliders\elastislide\1.jpg" />
     <Content Include="assets\img\sliders\elastislide\10.jpg" />
     <Content Include="assets\img\sliders\elastislide\11.jpg" />
@@ -983,6 +982,8 @@
     <Content Include="assets\plugins\revolution_slider\rs-plugin\videojs\font\vjs.eot" />
     <Content Include="assets\plugins\revolution_slider\rs-plugin\videojs\font\vjs.ttf" />
     <Content Include="assets\plugins\revolution_slider\rs-plugin\videojs\font\vjs.woff" />
+    <None Include="Properties\PublishProfiles\mrobinson-acf-test - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\mrobinson-acf-test - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
