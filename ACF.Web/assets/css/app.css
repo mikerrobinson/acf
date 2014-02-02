@@ -718,7 +718,7 @@ a.read-more:hover {
    overflow:hidden;
    position:relative;
    width:100% !important;
-   max-height:500px !important;
+   max-height:400px !important;
 }
 
 /*Layer Slider

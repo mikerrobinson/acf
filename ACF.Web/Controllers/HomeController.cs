@@ -63,5 +63,12 @@ namespace ACF.Web.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
+        [Route("Samples")]
+        public ActionResult Samples()
+        {
+            return View();
+        }
     }
 }

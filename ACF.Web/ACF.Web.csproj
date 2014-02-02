@@ -175,6 +175,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Extensions\IIdentityExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1028,6 +1029,9 @@
     <Content Include="Views\Account\_AccountListPartial.cshtml" />
     <Content Include="Views\Account\_ManageProfilePartial.cshtml" />
     <Content Include="Views\Account\ProfileConfirmation.cshtml" />
+    <Content Include="Views\Home\_MemberHero.cshtml" />
+    <Content Include="Views\Home\_GuestHero.cshtml" />
+    <Content Include="Views\Home\Samples.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

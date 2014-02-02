@@ -257,13 +257,13 @@ namespace ACF.Web.Controllers
                 var emailClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
                 var firstnameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName);
                 var lastnameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname);
-                var linkedInNameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == "urn:linkedin:name");
+                var facebookNameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == "urn:facebook:name");
                 var email = (emailClaim == null) ? "" : emailClaim.Value;
                 var firstname = (firstnameClaim == null) ? "" : firstnameClaim.Value;
                 var lastname = (lastnameClaim == null) ? "" : lastnameClaim.Value;
-                if (linkedInNameClaim != null && firstname == "")
+                if (facebookNameClaim != null && firstname == "")
                 {
-                    var names = linkedInNameClaim.Value.Split(new char[] { ' ' });
+                    var names = facebookNameClaim.Value.Split(new char[] { ' ' });
                     lastname = names.Last();
                     firstname = String.Join(" ", names.Take(names.Count() - 1));
                 }

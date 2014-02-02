@@ -22,3 +22,8 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+.purchase a.btn-buy {
+    min-width: 190px;
+    text-align: center;
+}

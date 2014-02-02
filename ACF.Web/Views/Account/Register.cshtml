@@ -2,7 +2,7 @@
 
 @model ACF.Web.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Subscribe";
 }
 
 @section styles {
@@ -13,10 +13,10 @@
     <div class="breadcrumbs margin-bottom-40">
         <div class="container">
             <div class="row col-lg-12">
-                <h1 class="pull-left">Registration</h1>
+                <h1 class="pull-left">Subscribe</h1>
             </div>
             <div class="row col-lg-12">
-                <p>Already registered? Click @Html.ActionLink("here", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to login your account.</p>
+                <p>Already subscribed? Click @Html.ActionLink("here", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to login your account.</p>
             </div>
         </div>
     </div><!--/breadcrumbs-->
@@ -64,7 +64,7 @@
                         @Html.ValidationMessageFor(m => m.AreTermsAccepted)
                     </div>*@
                 <div class="col-lg-12 text-right">
-                    <button class="btn-u" type="submit">Register</button>
+                    <button class="btn-u" type="submit">Subscribe</button>
                 </div>
             </div>
         }

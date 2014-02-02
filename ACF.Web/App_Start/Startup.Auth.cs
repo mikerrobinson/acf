@@ -28,11 +28,12 @@ namespace ACF.Web
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(new Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions() {
+                AppId = "362044747264734",
+                AppSecret = "349aca5c954fdfd9868993179adf273f"
+            });
 
-            //app.UseGoogleAuthentication();
+            app.UseGoogleAuthentication();
         }
     }
 }

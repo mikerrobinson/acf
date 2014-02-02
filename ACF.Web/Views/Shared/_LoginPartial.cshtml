@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
+@using ACF.Web.Extensions
 
 @if (Request.IsAuthenticated)
 {
@@ -10,7 +11,7 @@
     
     <li class="dropdown">
         <a href="#" id="userDropdown" class="dropdown-toggle" data-toggle="dropdown">
-        <i class="glyphicon glyphicon-user"></i> @User.Identity.GetUserName() <b class="icon-angle-down"></b></a>
+        <i class="glyphicon glyphicon-user"></i> @User.Identity.GetDisplayName() <b class="icon-angle-down"></b></a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="userDropdown" >
             <li>
                 @Html.ActionLink("Manage Profile", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
@@ -23,7 +24,7 @@
 }
 else
 {
-    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li>@Html.ActionLink("Subscribe", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
     <li class="devider"></li>
     <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
 }

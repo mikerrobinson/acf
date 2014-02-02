@@ -3,44 +3,21 @@
 }
 
 @section hero {
-    <div class="slider-inner">
-        <div id="da-slider" class="da-slider">
-            <div class="da-slide da-slide-current">
-                <h2><i>A GOOD PILOT</i> <br> <i>IS ALWAYS</i> <br> <i>LEARNING</i></h2>
-                <p><i>With short, frequent videos</i> <br> <i>covering tips and trips</i></p>
-                <div class="da-img"><img src="@Url.Content("/assets/plugins/parallax-slider/img/1.png")" alt=""></div>
-            </div>
-            <!--<div class="da-slide">
-                <h2><i>RESPONSIVE VIDEO</i> <br /> <i>SUPPORT AND</i> <br /> <i>MANY MORE</i></h2>
-                <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i></p>
-                <div class="da-img">
-                    <iframe src="http://player.vimeo.com/video/47911018" width="530" height="300" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-                </div>
-            </div>
-            <div class="da-slide">
-                <h2><i>USING BEST WEB</i> <br /> <i>SOLUTIONS WITH</i> <br /> <i>HTML5/CSS3</i></h2>
-                <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i> <br /> <i>veniam omnis </i></p>
-                <div class="da-img"><img src="assets/plugins/parallax-slider/img/html5andcss3.png" alt="image01" /></div>
-            </div>
-            <div class="da-arrows">
-                <span class="da-arrows-prev"></span>
-                <span class="da-arrows-next"></span>
-            </div>-->
-            <nav class="da-dots"><span class="da-dots-current"></span></nav>
-        </div><!--/da-slider-->
-    </div>
+    @Html.Partial("_GuestHero")
 }
 
 @section purchase {
     <div class="purchase">
         <div class="container">
             <div class="row">
-                <div class="col-md-9">
-                    <span>ACF is best way to keep current on tips, techniques, and regulations</span>
+                <div class="col-md-7">
+                    <span>For just $5/month Armchair Flying keeps you current on tips, techniques, and regulations</span>
 
                 </div>
-                <div class="col-md-3">
-                    <a href="#" class="btn-buy hover-effect">Pricing</a>
+                <div class="col-md-5">
+                    @*<a href="#" class="btn-buy hover-effect">Pricing</a>*@
+                    @Html.ActionLink("Subscribe", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn-buy hover-effect", style = "min-width: 190px;" })
+                    @Html.ActionLink("Sample Videos", "Samples", "Home", routeValues: null, htmlAttributes: new { @class = "btn-buy hover-effect", style = "min-width: 190px;" })
                 </div>
             </div>
         </div>
@@ -54,7 +31,7 @@
             <div class="service">
                 <i class="icon-resize-small service-icon"></i>
                 <div class="desc">
-                    <h4>Fully Responsive</h4>
+                    <h4>Videos</h4>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
                 </div>
             </div>
@@ -63,7 +40,7 @@
             <div class="service">
                 <i class="icon-cogs service-icon"></i>
                 <div class="desc">
-                    <h4>HTML5 + CSS3</h4>
+                    <h4>Articles</h4>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
                 </div>
             </div>
@@ -72,7 +49,7 @@
             <div class="service">
                 <i class="icon-plane service-icon"></i>
                 <div class="desc">
-                    <h4>Launch Ready</h4>
+                    <h4>Wisdom</h4>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
                 </div>
             </div>
@@ -323,9 +300,11 @@
         jQuery(document).ready(function () {
             App.init();
             App.initSliders();
-            Index.initParallaxSlider();
+            App.initBxSlider();
+            Index.initRevolutionSlider();
         });
     </script>
+
 }
 
 
