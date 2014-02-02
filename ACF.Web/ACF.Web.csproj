@@ -404,6 +404,8 @@
     <Content Include="assets\img\team\2.jpg" />
     <Content Include="assets\img\team\3.jpg" />
     <Content Include="assets\img\team\4.jpg" />
+    <Content Include="assets\img\team\jason.jpg" />
+    <Content Include="assets\img\team\samir.jpg" />
     <Content Include="assets\img\testimonials\img1.jpg" />
     <Content Include="assets\img\testimonials\img2.jpg" />
     <Content Include="assets\img\testimonials\user.jpg" />
@@ -1033,6 +1035,7 @@
     <Content Include="Views\Home\_MemberHero.cshtml" />
     <Content Include="Views\Home\_GuestHero.cshtml" />
     <Content Include="Views\Home\Samples.cshtml" />
+    <Content Include="Views\Home\Instructors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
