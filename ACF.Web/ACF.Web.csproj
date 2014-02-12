@@ -404,6 +404,8 @@
     <Content Include="assets\img\team\2.jpg" />
     <Content Include="assets\img\team\3.jpg" />
     <Content Include="assets\img\team\4.jpg" />
+    <Content Include="assets\img\team\afs.jpg" />
+    <Content Include="assets\img\team\dave.jpg" />
     <Content Include="assets\img\team\jason.jpg" />
     <Content Include="assets\img\team\samir.jpg" />
     <Content Include="assets\img\testimonials\img1.jpg" />
