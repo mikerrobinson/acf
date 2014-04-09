@@ -15,7 +15,7 @@
     <AssemblyName>ACF.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -48,6 +48,9 @@
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Stripe.net">
+      <HintPath>..\packages\Stripe.net.2.0.0\lib\net40\Stripe.net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -186,6 +189,10 @@
     <Compile Include="Migrations\201402011753009_AddBaseAirportToProfile.cs" />
     <Compile Include="Migrations\201402011753009_AddBaseAirportToProfile.Designer.cs">
       <DependentUpon>201402011753009_AddBaseAirportToProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404090323187_AddStripeToUser.cs" />
+    <Compile Include="Migrations\201404090323187_AddStripeToUser.Designer.cs">
+      <DependentUpon>201404090323187_AddStripeToUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1056,6 +1063,9 @@
     <EmbeddedResource Include="Migrations\201402011753009_AddBaseAirportToProfile.resx">
       <DependentUpon>201402011753009_AddBaseAirportToProfile.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404090323187_AddStripeToUser.resx">
+      <DependentUpon>201404090323187_AddStripeToUser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1075,7 +1085,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55671</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:55567/</IISUrl>
+          <IISUrl>http://localhost:2345</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

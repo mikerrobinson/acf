@@ -12,6 +12,8 @@ namespace ACF.Web.Controllers
         [Route("")]
         public ActionResult Index()
         {
+            ViewBag.JustRegistered = TempData["JustRegistered"] != null;
+
             return View();
         }
 

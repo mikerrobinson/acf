@@ -27,3 +27,7 @@ input[type="checkbox"].input-validation-error {
     min-width: 190px;
     text-align: center;
 }
+
+.alert {
+    margin-top: 20px;
+}

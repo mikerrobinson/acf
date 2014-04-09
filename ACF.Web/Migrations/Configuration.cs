@@ -1,5 +1,8 @@
 namespace ACF.Web.Migrations
 {
+    using ACF.Web.Models;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -27,6 +30,16 @@ namespace ACF.Web.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            var roleManager = new RoleManager<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+
+            if (!roleManager.RoleExists("Subscriber"))
+            {
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "Subscriber";
+                roleManager.Create(role);
+            }
+
         }
     }
 }

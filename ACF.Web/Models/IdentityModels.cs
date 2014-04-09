@@ -10,6 +10,8 @@ namespace ACF.Web.Models
         public string LastName { get; set; }
 
         public string BaseAirport { get; set; }
+
+        public string StripeCustomerId { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

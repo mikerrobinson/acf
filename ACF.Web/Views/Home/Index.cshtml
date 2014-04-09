@@ -3,10 +3,29 @@
 }
 
 @section hero {
-    @Html.Partial("_GuestHero")
+    @if (!User.IsInRole("Subscriber"))
+    {
+        @Html.Partial("_GuestHero")
+    }
 }
 
 @section purchase {
+
+    @if (User.IsInRole("Subscriber"))
+    {
+        if (ViewBag.JustRegistered)
+        {
+            <div class="container">
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4>Thank you for subscribing!</h4>
+                    You now have access to all of ArmchairFlying.com's content.  To view billing information, history, or to unsubscribe, click you name in the upper right corner and select 'Manage Subscription'.
+                </div>
+            </div>
+        }
+    }
+    else
+    {
     <div class="purchase">
         <div class="container">
             <div class="row">
@@ -15,49 +34,54 @@
 
                 </div>
                 <div class="col-md-5">
-                    @*<a href="#" class="btn-buy hover-effect">Pricing</a>*@
                     @Html.ActionLink("Subscribe", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn-buy hover-effect", style = "min-width: 190px;" })
                     @Html.ActionLink("Sample Videos", "Samples", "Home", routeValues: null, htmlAttributes: new { @class = "btn-buy hover-effect", style = "min-width: 190px;" })
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+    }  
 }
 
 
-    <!-- Service Blocks -->
-    <div class="row">
-        <div class="col-md-4">
-            <div class="service">
-                <i class="icon-resize-small service-icon"></i>
-                <div class="desc">
-                    <h4>Videos</h4>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
+    @if (!User.IsInRole("Subscriber"))
+    { 
+        <!-- Service Blocks -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="service">
+                    <i class="icon-resize-small service-icon"></i>
+                    <div class="desc">
+                        <h4>Videos</h4>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="service">
-                <i class="icon-cogs service-icon"></i>
-                <div class="desc">
-                    <h4>Articles</h4>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
+            <div class="col-md-4">
+                <div class="service">
+                    <i class="icon-cogs service-icon"></i>
+                    <div class="desc">
+                        <h4>Articles</h4>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="service">
-                <i class="icon-plane service-icon"></i>
-                <div class="desc">
-                    <h4>Wisdom</h4>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
+            <div class="col-md-4">
+                <div class="service">
+                    <i class="icon-plane service-icon"></i>
+                    <div class="desc">
+                        <h4>Wisdom</h4>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div><!--/row-->
-    <!-- End Service Blokcs -->
+        </div><!--/row-->
+        <!-- End Service Blokcs -->
+    }
+
+
     <!-- Recent Works -->
-    <div class="headline"><h2>Recent Works</h2></div>
+    <div class="headline"><h2>Recent Articles and Videos</h2></div>
     <div class="row">
         <div class="col-md-3 col-sm-6">
             <div class="thumbnails thumbnail-style thumbnail-kenburn">
@@ -179,118 +203,6 @@
         </div><!--/col-md-4-->
     </div><!--/row-->
     <!-- End Info Blokcs -->
-    <!-- Our Clients -->
-    <div id="clients-flexslider" class="flexslider home clients">
-        <div class="headline"><h2>Our Clients</h2></div>
-
-        <div class="flex-viewport" style="overflow: hidden; position: relative;">
-            <ul class="slides" style="width: 3400%; -webkit-transition: 0.6s; transition: 0.6s; -webkit-transform: translate3d(-760px, 0, 0);">
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/hp_grey.png" alt="">
-                        <img src="assets/img/clients/hp.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/igneus_grey.png" alt="">
-                        <img src="assets/img/clients/igneus.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/vadafone_grey.png" alt="">
-                        <img src="assets/img/clients/vadafone.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/walmart_grey.png" alt="">
-                        <img src="assets/img/clients/walmart.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/shell_grey.png" alt="">
-                        <img src="assets/img/clients/shell.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/natural_grey.png" alt="">
-                        <img src="assets/img/clients/natural.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/aztec_grey.png" alt="">
-                        <img src="assets/img/clients/aztec.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/gamescast_grey.png" alt="">
-                        <img src="assets/img/clients/gamescast.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/cisco_grey.png" alt="">
-                        <img src="assets/img/clients/cisco.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/everyday_grey.png" alt="">
-                        <img src="assets/img/clients/everyday.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/cocacola_grey.png" alt="">
-                        <img src="assets/img/clients/cocacola.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/spinworkx_grey.png" alt="">
-                        <img src="assets/img/clients/spinworkx.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/shell_grey.png" alt="">
-                        <img src="assets/img/clients/shell.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/natural_grey.png" alt="">
-                        <img src="assets/img/clients/natural.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/gamescast_grey.png" alt="">
-                        <img src="assets/img/clients/gamescast.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/everyday_grey.png" alt="">
-                        <img src="assets/img/clients/everyday.png" class="color-img" alt="">
-                    </a>
-                </li>
-                <li style="width: 125.66666666666667px; float: left; display: block;">
-                    <a href="#">
-                        <img src="assets/img/clients/spinworkx_grey.png" alt="">
-                        <img src="assets/img/clients/spinworkx.png" class="color-img" alt="">
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div><!--/flexslider-->
-    <!-- End Our Clients -->
 
 
 @section Scripts {

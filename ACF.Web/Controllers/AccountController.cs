@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using ACF.Web.Models;
+using Stripe;
 
 namespace ACF.Web.Controllers
 {
@@ -123,13 +124,34 @@ namespace ACF.Web.Controllers
                 user.LastName = model.LastName;
                 user.BaseAirport = model.BaseAirport;
 
-                var result = await UserManager.UpdateAsync(user);
-                if (result.Succeeded)
+                try
                 {
-                    TempData["JustRegistered"] = true;
-                    return RedirectToAction("Dashboard", "Home");
+                    var myCustomer = new StripeCustomerCreateOptions()
+                    {
+                        Email = User.Identity.GetUserName(),
+                        TokenId = model.Token,
+                        PlanId = "subscriber"
+                    };
+                    var customerService = new StripeCustomerService();
+                    StripeCustomer stripeCustomer = customerService.Create(myCustomer);
+                    user.StripeCustomerId = stripeCustomer.Id;
+
+                    // TODO: subscribe to Stripe charge failed event to remove Explorer role for deliquent users
+                    UserManager.AddToRole(user.Id, "Subscriber");
+
+                    var result = await UserManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        await SignInAsync(user, true);
+                        TempData["JustRegistered"] = true;
+                        return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
+                catch (StripeException e)
+                {
+                    ModelState.AddModelError("", e.StripeError.Message);
+                }
             }
 
             // If we got this far, something failed, redisplay form

@@ -13,6 +13,8 @@ namespace ACF.Web.Models
         [Display(Name = "Base Airport")]
         public string BaseAirport { get; set; }
 
+        public string Token { get; set; }
+
     }
 
     public class ExternalLoginConfirmationViewModel

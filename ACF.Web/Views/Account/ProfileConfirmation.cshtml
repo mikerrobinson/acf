@@ -18,7 +18,7 @@
                 <h1 class="pull-left">@ViewBag.Title</h1>
             </div>
             <div class="row col-lg-12">
-                <p>You're all signed up!  Providing some basic information here just helps us customize the site and any email correspondence to you.  It is never shared.</p>
+                <p>Great! Now that you've registered an account, just provide your billing information to get full access to ArmchairFlying.com.  If you choose to enter additional information, ArmchairFlying.com will prioritize stories that may be more relevant to you.  This is optional and any information you provide is never shared.</p>
             </div>
         </div>
     </div><!--/breadcrumbs-->
@@ -29,35 +29,66 @@
 <div class="row">
     <div class="col-md-6">
 
-        @using (Html.BeginForm("ProfileConfirmation", "Account", FormMethod.Post, new { @class = "reg-page" }))
+        @using (Html.BeginForm("ProfileConfirmation", "Account", FormMethod.Post, new { id = "billing-form", @class = "reg-page" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary()
+            <span class="payment-errors"></span>
+            
+            <fieldset>
+                <legend>Billing Information</legend>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.FirstName)
+                    </div>
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.FirstName)
-            </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.LastName)
+                    </div>
+                </div>
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.LastName)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.BaseAirport, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.BaseAirport, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.BaseAirport)
-            </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label for="card-number">Credit Card Number</label>
+                        <input type="tel" class="form-control" id="card-number" placeholder="Card number" data-stripe="number">
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="expiration-month">Expiration (MM/YYYY)</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="expiration-month" placeholder="MM" data-stripe="exp-month">
+                            <span class="input-group-btn"> / </span>
+                            <input type="text" class="form-control" id="expiration-year" placeholder="YYYY" data-stripe="exp-year">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="card-cvc">CVC</label>
+                        <input type="tel" class="form-control" id="card-cvc" placeholder="###" data-stripe="cvc">
+                    </div>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Optional Information</legend>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.BaseAirport, new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.BaseAirport, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.BaseAirport)
+                </div>
+            </fieldset>
 
             <hr>
 
             <div class="row">
                 <div class="col-lg-12 text-right">
                     <button class="btn-u" type="submit">Continue <span class="glyphicon glyphicon-arrow-right"></span></button>
-                    @Html.ActionLink("Skip this step", "", "", routeValues: null, htmlAttributes: new { @class = "btn-u btn-u-default" } )
+                    @*@Html.ActionLink("Skip this step", "", "", routeValues: null, htmlAttributes: new { @class = "btn-u btn-u-default" } )*@
                 </div>
             </div>
         }
@@ -66,4 +97,47 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript">
+
+        var stripeResponseHandler = function (status, response) {
+            var $form = $('#billing-form');
+
+            if (response.error) {
+                // Show the errors on the form
+                $form.find('.payment-errors').text(response.error.message);
+                $form.find('button').prop('disabled', false);
+                $form.find('button').text('Continue');
+            } else {
+                // token contains id, last4, and card type
+                var token = response.id;
+                var last4 = response.card.last4;
+                var cardtype = response.card.cardtype;
+
+                // Insert the token into the form so it gets submitted to the server
+                $form.append($('<input type="hidden" name="Token" />').val(token));
+                // and submit
+                $form.get(0).submit();
+            }
+        };
+
+        // This identifies your website in the createToken call below
+        Stripe.setPublishableKey('pk_test_m8ui6ZnPKPU2IfzeherjIauI');
+
+        jQuery(function ($) {
+            $('#billing-form').submit(function (event) {
+                var $form = $(this);
+
+                // Disable the submit button to prevent repeated clicks
+                $form.find('button').prop('disabled', true);
+                $form.find('button').text('Verifying...');
+                $('.wait-cursor').show();
+
+                Stripe.card.createToken($form, stripeResponseHandler);
+
+                // Prevent the form from submitting with the default action
+                return false;
+            });
+        });
+    </script>
 }
