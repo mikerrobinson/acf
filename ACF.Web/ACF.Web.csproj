@@ -177,6 +177,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Extensions\IIdentityExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -1045,6 +1046,11 @@
     <Content Include="Views\Home\_GuestHero.cshtml" />
     <Content Include="Views\Home\Samples.cshtml" />
     <Content Include="Views\Home\Instructors.cshtml" />
+    <Content Include="Views\Articles\Samir\2014-09-06.cshtml" />
+    <Content Include="Views\Articles\Samir\2014-09-04.cshtml" />
+    <Content Include="Views\Articles\Samir\2014-09-08.cshtml" />
+    <Content Include="Views\Shared\_Article.cshtml" />
+    <Content Include="Views\Shared\_BlogSidebar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

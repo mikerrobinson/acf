@@ -985,9 +985,9 @@ a.thumbnail {
 /*Sidebar Features
 ------------------------------------*/
 /*Blog Tags*/
-ul.blog-tags li {
+/*ul.blog-tags li {
 	display: inline-block;
-}
+}*/
 
 ul.blog-tags a {
 	font-size :13px;

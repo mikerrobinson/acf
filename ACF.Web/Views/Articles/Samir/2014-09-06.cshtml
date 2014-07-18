@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "VFR Chart - CTAF at Night";
+    Layout = "~/Views/Shared/_Article.cshtml";
+}
+
+@section styles {
+    <link rel="stylesheet" href="/assets/css/pages/blog.css">
+    <link rel="stylesheet" href="/assets/css/pages/page_magazine.css">
+}
+
+@section breadcrumbs {
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.TItle</h1>
+        </div>
+    </div>
+}
+
+<!--Blog Post-->
+<div class="blog margin-bottom-40">
+    <h2><a href="blog_item_option1.html">Which control tower frequency should you use at night?</a></h2>
+    <div class="blog-post-tags">
+        <ul class="list-unstyled list-inline blog-info">
+            <li><i class="icon-calendar"></i> September 6, 2013</li>
+            <li><i class="icon-pencil"></i> Samir Kanuga, CFII</li>
+        </ul>
+        <ul class="list-unstyled list-inline blog-tags">
+            <li>
+                <i class="icon-tags"></i>
+                <a href="#">VFR Charts</a>
+                <a href="#">Radios</a>
+            </li>
+        </ul>
+    </div>
+    <div class="blog-img">
+        <img class="img-responsive" src="/assets/img/posts/2.jpg" alt="">
+    </div>
+    
+    <h4>Question</h4>
+    <p>Williams Gateway (KIWA) located in Southeast Phoenix has two control tower frequencies listed on the VFR chart.  Which one is the CTAF, which would be used when the control tower is closed at night?</p><br>
+    <img class="img-responsive" src="/assets/img/articles/samir/2013-09-06_1.png" alt="">
+
+    <h4>Answer</h4>
+    <p>Most people would read from left to right, like a book, and see the <img src="/assets/img/articles/samir/2013-09-06_2.png" alt="">, and assume the CTAF to be 124.75.  That is incorrect.  If you answered 120.6 then you are correct.</p>
+
+    <p>Remember, the FAA charts list the <img src="/assets/img/articles/samir/2013-09-06_2.png" alt=""> AFTER the CTAF frequency. </p><br>
+
+    <p>Interestingly enough, Chandler (KCHD) just southwest of Williams Gateway has the same situation.</p><br />
+
+    <h4>Why is this important?</h4>
+    <p>Other pilots may make this same mistake.  Be sure they aren’t transmitting on the second tower frequency after hours.  This can lead to missed calls and not getting a full understanding of where the other pilots are at in the pattern and on the ground.  Also, pilot controlled lighting is typically on the CTAF frequency.  At a towered airport like Williams Gateway, the automated weather station will typically have a recording stating the CTAF frequency also.</p><br/>
+</div>
+
+<hr/>

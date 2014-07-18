@@ -16,6 +16,12 @@ namespace ACF.Web
             routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
+                name: "Articles",
+                url: "articles/{author}/{title}",
+                defaults: new { controller = "Articles", action = "View" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
